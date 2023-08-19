@@ -19,7 +19,25 @@ internal sealed class GetBookingQueryHandler : IQueryHandler<GetBookingQuery, Bo
     {
         using var connection = _sqlConnectionFactory.CreateConnection();
 
-        const string sql = "";
+        const string sql = @"
+            SELECT
+                Id AS Id,
+                ApartmentId AS ApartmentId,
+                UserId AS UserId,
+                Status AS Status,
+                PriceForPeriodAmount AS PriceAmount,
+                PriceForPeriodCurrency AS PriceCurrency,
+                CleaningFeeAmount AS CleaningFeeAmount,
+                CleaningFeeCurrency AS CleaningFeeCurrency,
+                AmenitiesUpChargeAmount AS AmenitiesUpChargeAmount,
+                AmenitiesUpChargeCurrency AS AmenitiesUpChargeCurrency,
+                TotalPriceAmount AS TotalPriceAmount,
+                TotalPriceCurrency AS TotalPriceCurrency,
+                DurationStart AS DurationStart,
+                DurationEnd AS DurationEnd,
+                CreatedOnUtc AS CreatedOnUtc
+            FROM Booking
+            WHERE id = @BookingId";
 
         var booking = await connection.QueryFirstOrDefaultAsync<BookingResponse>(sql, new
         {
