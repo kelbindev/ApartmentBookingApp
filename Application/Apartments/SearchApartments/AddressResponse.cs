@@ -7,3 +7,4 @@ public sealed class AddressResponse
     public string ZipCode { get; init; }
     public string City { get; init; }
     public string Street { get; init; }
+}
